@@ -7,7 +7,6 @@ public class LineItem {
     private int quantity;
 
     public LineItem(String description, double price, int quantity) {
-        super();
         this.description = description;
         this.price = price;
         this.quantity = quantity;
