@@ -1,27 +1,62 @@
 package club.oobootcamp.refactoring;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Order {
-    String nm;
-    String addr;
-    List<LineItem> li;
+    private String customerName;
+    private String customerAddress;
+    private List<LineItem> lineItems;
 
-    public Order(String nm, String addr, List<LineItem> li) {
-        this.nm = nm;
-        this.addr = addr;
-        this.li = li;
+    public Order(String customerName, String customerAddress, List<LineItem> lineItems) {
+        this.customerName = customerName;
+        this.customerAddress = customerAddress;
+        this.lineItems = lineItems;
     }
 
     public String getCustomerName() {
-        return nm;
+        return customerName;
     }
 
     public String getCustomerAddress() {
-        return addr;
+        return customerAddress;
     }
 
     public List<LineItem> getLineItems() {
-        return li;
+        return lineItems;
     }
+
+    public double getTotalSalesTax() {
+        return getLineItems().stream().mapToDouble(LineItem::getSalesTax).sum();
+    }
+
+    public double getTotalAmountWithTax() {
+        return getLineItems().stream().mapToDouble(LineItem::getTotalAmountWithTax).sum();
+    }
+
+    public String generateReceipt() {
+        return new StringBuilder()
+                .append(generateCustomerInfo())
+                .append(generateItemsInfo())
+                .append(generateTotalSalesTax())
+                .append(generateTotalAmountWithTax())
+                .toString();
+    }
+
+    private String generateCustomerInfo() {
+        return getCustomerName() + getCustomerAddress();
+    }
+
+    private String generateItemsInfo() {
+        return getLineItems().stream().map(LineItem::generateLineItemInfo).collect(Collectors.joining());
+    }
+
+    private String generateTotalAmountWithTax() {
+        return "Total Amount" + '\t' + getTotalAmountWithTax();
+    }
+
+    private String generateTotalSalesTax() {
+        return "Sales Tax" + '\t' + getTotalSalesTax();
+    }
+
 }
