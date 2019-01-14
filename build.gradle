@@ -38,6 +38,24 @@ ext.libs = [
                 'org.mockito:mockito-junit-jupiter:2.17.0'
         ]
 ]
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+        afterSuite { desc, result ->
+            if (!desc.parent) {
+                def output = " Result: ${result.resultType} " +
+                        "(${result.testCount} Tests, " +
+                        "${result.successfulTestCount} Successes, " +
+                        "${result.failedTestCount} Failures, " +
+                        "${result.skippedTestCount} Skipped) "
+                println('\n' + ('-' * output.length()) + '\n' + output + '\n' + ('-' * output.length()))
+            }
+        }
+    }
+}
+
 dependencies {
     testCompile libs.junit5
     testCompile 'org.assertj:assertj-core:3.10.0'
