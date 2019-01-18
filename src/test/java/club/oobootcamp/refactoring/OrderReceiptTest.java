@@ -1,15 +1,15 @@
 package club.oobootcamp.refactoring;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-public class OrderReceiptTest {
+class OrderReceiptTest {
     @Test
-    public void should_print_customer_information_on_order() {
+    void should_print_customer_information_on_order() {
         Order order = new Order("Mr X", "Chicago, 60601", new ArrayList<LineItem>());
         OrderReceipt receipt = new OrderReceipt(order);
 
@@ -20,7 +20,7 @@ public class OrderReceiptTest {
     }
 
     @Test
-    public void should_print_line_item_and_sales_tax_information() {
+    void should_print_line_item_and_sales_tax_information() {
         ArrayList<LineItem> lineItems = new ArrayList<LineItem>() {{
             add(new LineItem("milk", 10.0, 2));
             add(new LineItem("biscuits", 5.0, 5));
