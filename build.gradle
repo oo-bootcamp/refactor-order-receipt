@@ -47,6 +47,7 @@ test {
 }
 
 dependencies {
-    testCompile libs.junit5
+    testCompile libs.junit4
     testCompile 'org.assertj:assertj-core:3.10.0'
 }
+
